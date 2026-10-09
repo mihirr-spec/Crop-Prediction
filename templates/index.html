@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}CropWise: Find the Right Crop{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <div class="hero-content">
+    <h1>
+      Farming is hard enough.
+      <span>Planting shouldn&rsquo;t be a guess.</span>
+    </h1>
+    <p class="hero-sub">
+      Enter your soil nutrients and local climate, and our machine-learning
+      model recommends the crops most likely to thrive.
+    </p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="/recommend">Get Recommendation</a>
+      <a class="btn btn-secondary" href="/crops">Explore Crops</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

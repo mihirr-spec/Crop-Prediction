@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% block title %}Get a Recommendation: CropWise{% endblock %}
+{% block body_class %}inner-page{% endblock %}
+
+{% block content %}
+<main class="rec">
+  <header class="rec-head">
+    <h1>Find your best crop</h1>
+    <p>Pick your location and we fill in the climate. You only enter 4 soil values.</p>
+  </header>
+
+  <form id="rec-form" class="rec-grid" novalidate>
+    <!-- Step 1: location + season -> climate -->
+    <section class="card">
+      <h2><span class="step">1</span> Where is your farm?</h2>
+
+      <button type="button" id="use-gps" class="btn-gps">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><circle cx="12" cy="12" r="7"/></svg>
+        Use my current location
+      </button>
+
+      <div class="or-line"><span>or search your village / city</span></div>
+
+      <div class="place-search">
+        <input id="place-input" type="text" placeholder="e.g. Nashik" autocomplete="off"
+               aria-label="Search for a place" aria-controls="place-list">
+        <ul id="place-list" class="place-list" role="listbox" hidden></ul>
+      </div>
+
+      <p id="place-chosen" class="place-chosen" hidden></p>
+
+      <fieldset class="seasons">
+        <legend>Season you are planting for</legend>
+        {% for key, s in seasons.items() %}
+          <label class="season-pill">
+            <input type="radio" name="season" value="{{ key }}" {% if key == default_season %}checked{% endif %}>
+            <span>{{ s.label }}</span>
+          </label>
+        {% endfor %}
+      </fieldset>
+
+      <div class="climate">
+        <div class="climate-head">
+          <h3>Climate for your season</h3>
+          <span id="climate-status" class="climate-status">Choose a location to auto-fill</span>
+        </div>
+        <div class="climate-fields">
+          <label>Temperature <small>°C</small>
+            <input name="temperature" type="number" step="0.1" required>
+          </label>
+          <label>Humidity <small>%</small>
+            <input name="humidity" type="number" step="0.1" required>
+          </label>
+          <label>Rainfall <small>mm / month</small>
+            <input name="rainfall" type="number" step="0.1" required>
+          </label>
+        </div>
+        <p class="hint">Averages for these months over the last 3 years (Open-Meteo). You can edit them.</p>
+      </div>
+    </section>
+
+    <!-- Step 2: soil -->
+    <section class="card">
+      <h2><span class="step">2</span> Your soil</h2>
+      <p class="hint">Copy these from your <strong>Soil Health Card</strong> or a soil test report.</p>
+
+      <div class="soil-fields">
+        <label>Nitrogen (N) <small>kg/ha · 0–140</small>
+          <input name="N" type="number" step="any" min="0" required>
+        </label>
+        <label>Phosphorus (P) <small>kg/ha · 5–145</small>
+          <input name="P" type="number" step="any" min="0" required>
+        </label>
+        <label>Potassium (K) <small>kg/ha · 5–205</small>
+          <input name="K" type="number" step="any" min="0" required>
+        </label>
+        <label>Soil pH <small>3.5–9.9</small>
+          <input name="ph" type="number" step="0.1" min="0" max="14" required>
+        </label>
+      </div>
+
+      <button type="button" id="fill-sample" class="link-btn">Fill sample soil values</button>
+
+      <p id="form-error" class="form-error" role="alert" hidden></p>
+
+      <button type="submit" class="btn btn-primary btn-wide" id="submit-btn">Recommend Crop</button>
+    </section>
+  </form>
+
+  <!-- Results -->
+  <section id="results" class="results" hidden aria-live="polite">
+    <h2>Recommended crops</h2>
+    <div id="result-cards" class="result-cards"></div>
+    <ul id="result-warnings" class="result-warnings"></ul>
+  </section>
+</main>
+
+<script src="{{ url_for('static', filename='js/recommend.js') }}"></script>
+{% endblock %}

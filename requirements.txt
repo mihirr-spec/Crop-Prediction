@@ -1,0 +1,12 @@
+# ML / data
+numpy
+pandas
+scikit-learn==1.7.2   # must match the version crop_rf_model.pkl was saved with
+joblib
+matplotlib
+
+# Web app
+flask
+
+# Run the notebook inside this environment
+ipykernel
