@@ -61,3 +61,14 @@ STATS = {
     "rice": {"N": 79.9, "P": 47.6, "K": 39.9, "temperature": 23.7, "humidity": 82.3, "ph": 6.4, "rainfall": 236.2},
     "watermelon": {"N": 99.4, "P": 17.0, "K": 50.2, "temperature": 25.6, "humidity": 85.2, "ph": 6.5, "rainfall": 50.8},
 }
+
+# "Try sample values": real rows from the dataset that the model is most
+# confident about (and that sit close to that crop's average conditions)
+SAMPLES = [
+    {"crop": "rice", "group": "cereals",
+     "values": {"N": 91, "P": 50, "K": 40, "temperature": 20.8, "humidity": 84.1, "ph": 6.5, "rainfall": 230.2}},
+    {"crop": "chickpea", "group": "pulses",
+     "values": {"N": 42, "P": 67, "K": 77, "temperature": 19.0, "humidity": 15.9, "ph": 7.1, "rainfall": 78.7}},
+    {"crop": "mango", "group": "fruits",
+     "values": {"N": 28, "P": 23, "K": 28, "temperature": 30.0, "humidity": 50.1, "ph": 5.7, "rainfall": 96.1}},
+]

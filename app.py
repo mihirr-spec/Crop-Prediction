@@ -3,10 +3,9 @@ from pathlib import Path
 
 from flask import Flask, jsonify, render_template, request
 
-from crops import GROUPS, STATS
+from crops import GROUPS, SAMPLES, STATS
 from i18n import DEFAULT_LANG, FONTS, LANGUAGES, crop_name, js_strings, translate
 from predict import recommend_top_k
-from weather import SEASONS, current_season, get_climate, search_places
 
 app = Flask(__name__)
 
@@ -40,7 +39,7 @@ def remember_lang(response):
 
 
 def predict_context():
-    return {"seasons": SEASONS, "default_season": current_season()}
+    return {"samples": SAMPLES}
 
 
 @app.route("/")
@@ -57,32 +56,6 @@ def recommend():
 def credits():
     data = json.loads(CREDITS_FILE.read_text(encoding="utf-8"))
     return render_template("credits.html", credits=data)
-
-
-@app.get("/api/places")
-def api_places():
-    q = request.args.get("q", "").strip()
-    if len(q) < 2:
-        return jsonify([])
-    try:
-        return jsonify(search_places(q))
-    except OSError:
-        return jsonify({"error": "Place search is unavailable right now"}), 503
-
-
-@app.get("/api/climate")
-def api_climate():
-    try:
-        lat = float(request.args["lat"])
-        lon = float(request.args["lon"])
-    except (KeyError, ValueError):
-        return jsonify({"error": "lat and lon are required"}), 400
-    try:
-        return jsonify(get_climate(lat, lon, request.args.get("season")))
-    except ValueError as e:
-        return jsonify({"error": str(e)}), 400
-    except OSError:
-        return jsonify({"error": "Weather service is unavailable right now"}), 503
 
 
 @app.post("/api/predict")

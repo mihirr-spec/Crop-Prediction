@@ -4,71 +4,39 @@
     <p>{{ t('rec_sub') }}</p>
   </header>
 
+  <!-- Try sample values -->
+  <div class="samples">
+    <h3 class="samples-title">{{ t('try_samples') }}</h3>
+    <p class="hint">{{ t('samples_hint') }}</p>
+    <div class="sample-list">
+      {% for s in samples %}
+        <button type="button" class="sample-btn" data-values='{{ s["values"] | tojson }}'>
+          <img src="{{ url_for('static', filename='images/crops/' ~ s.crop ~ '.webp') }}" alt="" width="64" height="48" loading="lazy">
+          <span>
+            <strong>{{ crop_name(s.crop) }}</strong>
+            <small>{{ t('group_' ~ s.group) }}</small>
+          </span>
+        </button>
+      {% endfor %}
+    </div>
+  </div>
+
   <form id="rec-form" class="rec-grid" novalidate>
-    <!-- Step 1: weather -->
+    <!-- Step 1: climate -->
     <section class="card">
       <h3 class="card-title"><span class="step">1</span> {{ t('step1_title') }}</h3>
+      <p class="hint">{{ t('climate_hint') }}</p>
 
-      <div class="mode-tabs" role="tablist">
-        <button type="button" role="tab" class="mode-tab" data-mode="auto" aria-selected="true">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
-          {{ t('mode_auto') }}
-        </button>
-        <button type="button" role="tab" class="mode-tab" data-mode="manual" aria-selected="false">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16v4z"/><path d="M13.5 6.5l4 4"/></svg>
-          {{ t('mode_manual') }}
-        </button>
-      </div>
-
-      <p id="mode-notice" class="mode-notice" role="status" hidden></p>
-
-      <!-- Auto mode: location -->
-      <div class="auto-only">
-        <button type="button" id="use-gps" class="btn-gps">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><circle cx="12" cy="12" r="7"/></svg>
-          {{ t('gps_btn') }}
-        </button>
-
-        <div class="or-line"><span>{{ t('or_search') }}</span></div>
-
-        <div class="place-search">
-          <input id="place-input" type="text" placeholder="{{ t('search_ph') }}" autocomplete="off"
-                 aria-label="{{ t('search_label') }}" aria-controls="place-list">
-          <ul id="place-list" class="place-list" role="listbox" hidden></ul>
-        </div>
-
-        <p id="place-chosen" class="place-chosen" hidden></p>
-
-        <fieldset class="seasons">
-          <legend>{{ t('season_legend') }}</legend>
-          {% for key in seasons %}
-            <label class="season-pill">
-              <input type="radio" name="season" value="{{ key }}" {% if key == default_season %}checked{% endif %}>
-              <span>{{ t('season_' ~ key) }}</span>
-            </label>
-          {% endfor %}
-        </fieldset>
-      </div>
-
-      <!-- Climate values: filled automatically, or typed in manual mode -->
-      <div class="climate">
-        <div class="climate-head">
-          <h4>{{ t('climate_title') }}</h4>
-          <span id="climate-status" class="climate-status auto-only">{{ t('status_choose') }}</span>
-        </div>
-        <div class="climate-fields">
-          <label>{{ t('lbl_temperature') }} <small>°C</small>
-            <input name="temperature" type="number" inputmode="decimal" step="0.1" required>
-          </label>
-          <label>{{ t('lbl_humidity') }} <small>%</small>
-            <input name="humidity" type="number" inputmode="decimal" step="0.1" min="0" max="100" required>
-          </label>
-          <label>{{ t('lbl_rainfall') }} <small>{{ t('unit_mm_month') }}</small>
-            <input name="rainfall" type="number" inputmode="decimal" step="0.1" min="0" required>
-          </label>
-        </div>
-        <p class="hint auto-only">{{ t('climate_hint') }}</p>
-        <p class="hint manual-only">{{ t('manual_hint') }}</p>
+      <div class="climate-fields">
+        <label>{{ t('lbl_temperature') }} <small>°C · 9–44</small>
+          <input name="temperature" type="number" inputmode="decimal" step="0.1" required>
+        </label>
+        <label>{{ t('lbl_humidity') }} <small>% · 14–100</small>
+          <input name="humidity" type="number" inputmode="decimal" step="0.1" min="0" max="100" required>
+        </label>
+        <label>{{ t('lbl_rainfall') }} <small>{{ t('unit_mm_month') }} · 20–300</small>
+          <input name="rainfall" type="number" inputmode="decimal" step="0.1" min="0" required>
+        </label>
       </div>
     </section>
 
@@ -91,8 +59,6 @@
           <input name="ph" type="number" inputmode="decimal" step="0.1" min="0" max="14" required>
         </label>
       </div>
-
-      <button type="button" id="fill-sample" class="link-btn">{{ t('fill_sample') }}</button>
 
       <p id="form-error" class="form-error" role="alert" hidden></p>
 
