@@ -18,7 +18,7 @@ cropwise/
 model/crop_rf_model.pkl trained Random Forest
 data/                   Crop_recommendation.csv (2,200 rows, 22 crops)
 notebooks/              training notebook (EDA, models, evaluation)
-docs/                   project report (PDF)
+docs/                   project report and viva Q&A (PDF)
 templates/, static/     HTML, CSS, JavaScript, crop photos
 ```
 
