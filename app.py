@@ -53,13 +53,6 @@ def recommend():
     return render_template("recommend.html", **predict_context())
 
 
-@app.route("/login", methods=["GET", "POST"])
-def login():
-    # TODO: accounts are not set up yet; this only shows the page
-    show_notice = request.method == "POST"
-    return render_template("login.html", show_notice=show_notice)
-
-
 @app.route("/credits")
 def credits():
     data = json.loads(CREDITS_FILE.read_text(encoding="utf-8"))
