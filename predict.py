@@ -1,8 +1,9 @@
 """Top-k crop recommendation using the trained Random Forest model."""
+import warnings as pywarnings
 from pathlib import Path
 
 import joblib
-import pandas as pd
+import numpy as np
 
 MODEL_PATH = Path(__file__).with_name("crop_rf_model.pkl")
 
@@ -49,7 +50,11 @@ def recommend_top_k(values, k=3):
             warnings.append(f"{f} outside training range ({lo}-{hi})")
 
     model = load_model()
-    proba = model.predict_proba(pd.DataFrame([row], columns=FEATURES))[0]
+    X = np.array([[row[f] for f in FEATURES]])
+    with pywarnings.catch_warnings():
+        # model was fitted on a DataFrame; a plain array in the same column order is fine
+        pywarnings.simplefilter("ignore", UserWarning)
+        proba = model.predict_proba(X)[0]
     top_idx = proba.argsort()[::-1][:k]
 
     top = [

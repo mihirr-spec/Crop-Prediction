@@ -1,0 +1,8 @@
+# For the notebook and local tools
+-r requirements.txt
+pandas
+matplotlib
+ipykernel
+nbconvert
+pillow
+playwright

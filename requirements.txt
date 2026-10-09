@@ -1,12 +1,5 @@
-# ML / data
+# Needed by the web app (this is what Vercel installs)
+flask
 numpy
-pandas
 scikit-learn==1.7.2   # must match the version crop_rf_model.pkl was saved with
 joblib
-matplotlib
-
-# Web app
-flask
-
-# Run the notebook inside this environment
-ipykernel
