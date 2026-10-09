@@ -1,26 +1,43 @@
 <!doctype html>
-<html lang="en">
+<html lang="{{ lang }}">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#2e7d32">
   <title>{% block title %}CropWise{% endblock %}</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  {% if lang_font %}
+  <link href="https://fonts.googleapis.com/css2?family={{ lang_font | replace(' ', '+') }}:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --font-body: "Inter", "{{ lang_font }}", system-ui, sans-serif;
+      --font-display: "Fraunces", "{{ lang_font }}", Georgia, serif;
+    }
+  </style>
+  {% endif %}
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body class="{% block body_class %}{% endblock %}">
   {% block nav %}
-  <header class="nav">
+  <header class="nav" id="top">
     <a class="brand" href="/">CropWise</a>
-    <nav class="nav-links">
-      <a href="/">Home</a>
-      <a href="/recommend">Recommend</a>
-      <a href="/crops">Crop Library</a>
-      <a href="/insights">Insights</a>
-      <a href="/about">About</a>
-      <a href="/login">Log In</a>
-    </nav>
+
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-panel">
+      <span class="sr-only">{{ t('nav_menu') }}</span>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+
+    <div class="nav-panel" id="nav-panel">
+      <nav class="nav-links">
+        <a href="/">{{ t('nav_home') }}</a>
+        <a href="/#crops">{{ t('nav_crops') }}</a>
+        <a href="/#predict">{{ t('nav_predict') }}</a>
+        <a href="/login">{{ t('nav_login') }}</a>
+      </nav>
+      {% include "_lang_picker.html" %}
+    </div>
   </header>
   {% endblock %}
 
@@ -28,8 +45,27 @@
 
   {% block footer %}
   <footer class="footer">
-    CropWise &middot; SEM 5 Mini Project
+    <p>{{ t('footer') }}</p>
+    <p><a href="/credits">{{ t('photo_credits') }}</a></p>
   </footer>
   {% endblock %}
+
+  <script>
+    (function () {
+      var btn = document.querySelector(".nav-toggle");
+      if (!btn) return;
+      var nav = btn.closest(".nav");
+      btn.addEventListener("click", function () {
+        var open = nav.classList.toggle("nav-open");
+        btn.setAttribute("aria-expanded", open);
+      });
+      nav.querySelectorAll(".nav-links a").forEach(function (a) {
+        a.addEventListener("click", function () {
+          nav.classList.remove("nav-open");
+          btn.setAttribute("aria-expanded", "false");
+        });
+      });
+    })();
+  </script>
 </body>
 </html>

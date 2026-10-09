@@ -1,0 +1,134 @@
+{
+ "apple": {
+  "file": "File:Pink_lady_and_cross_section.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Pink_lady_and_cross_section.jpg",
+  "author": "fir0002",
+  "license": "GFDL 1.2"
+ },
+ "banana": {
+  "file": "File:Bananavarieties.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Bananavarieties.jpg",
+  "author": "TimothyPilgrim",
+  "license": "CC BY-SA 3.0"
+ },
+ "blackgram": {
+  "file": "File:Black_gram.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Black_gram.jpg",
+  "author": "Sanjay Acharya",
+  "license": "CC BY-SA 3.0"
+ },
+ "chickpea": {
+  "file": "File:Ordinary chickpeas in a ceramic bowl.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Ordinary_chickpeas_in_a_ceramic_bowl.jpg",
+  "author": "AlixSaz",
+  "license": "CC BY-SA 4.0"
+ },
+ "coconut": {
+  "file": "File:Coconut Tree.JPG",
+  "page": "https://commons.wikimedia.org/wiki/File:Coconut_Tree.JPG",
+  "author": "Anoopan at Malayalam Wikipedia",
+  "license": "CC BY 3.0"
+ },
+ "coffee": {
+  "file": "File:Coffee cherries.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Coffee_cherries.jpg",
+  "author": "Scot Nelson",
+  "license": "CC0"
+ },
+ "cotton": {
+  "file": "File:CottonPlant.JPG",
+  "page": "https://commons.wikimedia.org/wiki/File:CottonPlant.JPG",
+  "author": "",
+  "license": "Public domain"
+ },
+ "grapes": {
+  "file": "File:Grapes,_Rostov-on-Don,_Russia.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Grapes,_Rostov-on-Don,_Russia.jpg",
+  "author": "Vyacheslav Argenberg",
+  "license": "CC BY 4.0"
+ },
+ "jute": {
+  "file": "File:Jute Field Bangladesh (7749587518).jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Jute_Field_Bangladesh_(7749587518).jpg",
+  "author": "Malcolm Manners from Lakeland FL, USA",
+  "license": "CC BY 2.0"
+ },
+ "kidneybeans": {
+  "file": "File:Red_Rajma_BNC.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Red_Rajma_BNC.jpg",
+  "author": "Prathyush Thomas",
+  "license": "GFDL 1.2"
+ },
+ "lentil": {
+  "file": "File:3_types_of_lentil.png",
+  "page": "https://commons.wikimedia.org/wiki/File:3_types_of_lentil.png",
+  "author": "User:Justinc",
+  "license": "CC BY-SA 2.5"
+ },
+ "maize": {
+  "file": "File:Maize Ripening - geograph.org.uk - 579127.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Maize_Ripening_-_geograph.org.uk_-_579127.jpg",
+  "author": "Colin Smith",
+  "license": "CC BY-SA 2.0"
+ },
+ "mango": {
+  "file": "File:Mangos_-_single_and_halved.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Mangos_-_single_and_halved.jpg",
+  "author": "Ivar Leidus",
+  "license": "CC BY-SA 4.0"
+ },
+ "mothbeans": {
+  "file": "File:Matki.JPG",
+  "page": "https://commons.wikimedia.org/wiki/File:Matki.JPG",
+  "author": "Lalitstar at English Wikipedia",
+  "license": "CC BY-SA 3.0"
+ },
+ "mungbean": {
+  "file": "File:Mung_beans_(Vigna_radiata).jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Mung_beans_(Vigna_radiata).jpg",
+  "author": "Ivar Leidus",
+  "license": "CC BY-SA 4.0"
+ },
+ "muskmelon": {
+  "file": "File:Muskmelon.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Muskmelon.jpg",
+  "author": "Seth Vidal",
+  "license": "CC BY-SA 2.0"
+ },
+ "orange": {
+  "file": "File:Oranges_-_whole-halved-segment.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Oranges_-_whole-halved-segment.jpg",
+  "author": "Ivar Leidus",
+  "license": "CC BY-SA 4.0"
+ },
+ "papaya": {
+  "file": "File:Papaya - longitudinal section.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Papaya_-_longitudinal_section.jpg",
+  "author": "Ivar Leidus",
+  "license": "CC BY-SA 4.0"
+ },
+ "pigeonpeas": {
+  "file": "File:Pigeon pea pods dried.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Pigeon_pea_pods_dried.jpg",
+  "author": "David E Mead",
+  "license": "CC0"
+ },
+ "pomegranate": {
+  "file": "File:Pomegranate fruit - whole and piece with arils.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Pomegranate_fruit_-_whole_and_piece_with_arils.jpg",
+  "author": "Ivar Leidus",
+  "license": "CC BY-SA 4.0"
+ },
+ "rice": {
+  "file": "File:Tortuous dirt road in wet paddy fields and green hills in Vang Vieng, Laos.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Tortuous_dirt_road_in_wet_paddy_fields_and_green_hills_in_Vang_Vieng,_Laos.jpg",
+  "author": "Basile Morin",
+  "license": "CC BY-SA 4.0"
+ },
+ "watermelon": {
+  "file": "File:Watermelon Bahar 2.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Watermelon_Bahar_2.jpg",
+  "author": "Shams948",
+  "license": "CC BY-SA 4.0"
+ }
+}

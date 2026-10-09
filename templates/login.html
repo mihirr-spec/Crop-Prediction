@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Log In: CropWise{% endblock %}
+{% block title %}{{ t('login_title') }}: CropWise{% endblock %}
 {% block body_class %}login-page{% endblock %}
 {% block nav %}{% endblock %}
 {% block footer %}{% endblock %}
@@ -7,6 +7,7 @@
 {% block content %}
 <main class="login">
   <div class="login-panel">
+    <div class="login-top">
     <a class="login-brand" href="/">
       <svg class="leaf" viewBox="0 0 48 48" aria-hidden="true">
         <path d="M22 44c0-10 0-20-12-30 14 2 18 12 12 30z" fill="#3f6b2a"/>
@@ -15,43 +16,45 @@
       </svg>
       CropWise
     </a>
+    {% include "_lang_picker.html" %}
+    </div>
 
-    <p class="login-tagline">Smart farming <span>&middot;</span> Brighter tomorrows</p>
+    <p class="login-tagline">{{ t('tagline_1') }} <span>&middot;</span> {{ t('tagline_2') }}</p>
 
-    <h1 class="login-title">Welcome <span>Back</span></h1>
+    <h1 class="login-title">{{ t('welcome') }} <span>{{ t('back') }}</span></h1>
     <p class="login-sub">
-      Continue to get smart crop recommendations for a healthier and more productive tomorrow.
+      {{ t('login_sub') }}
     </p>
 
-    {% if notice %}
-      <p class="login-notice" role="status">{{ notice }}</p>
+    {% if show_notice %}
+      <p class="login-notice" role="status">{{ t('accounts_notice') }}</p>
     {% endif %}
 
     <form class="login-form" method="post" action="/login">
-      <label for="email">Email Address</label>
+      <label for="email">{{ t('email_label') }}</label>
       <div class="field">
         <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
-        <input id="email" name="email" type="email" placeholder="Enter your email" autocomplete="email" required>
+        <input id="email" name="email" type="email" placeholder="{{ t('email_ph') }}" autocomplete="email" required>
       </div>
 
-      <label for="password">Password</label>
+      <label for="password">{{ t('pw_label') }}</label>
       <div class="field">
         <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
-        <input id="password" name="password" type="password" placeholder="Enter your password" autocomplete="current-password" required>
-        <button type="button" class="toggle-pw" aria-label="Show password">
+        <input id="password" name="password" type="password" placeholder="{{ t('pw_ph') }}" autocomplete="current-password" required>
+        <button type="button" class="toggle-pw" aria-label="{{ t('show_pw') }}">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>
         </button>
       </div>
 
-      <a class="forgot" href="#">Forgot Password?</a>
+      <a class="forgot" href="#">{{ t('forgot') }}</a>
 
       <button type="submit" class="btn-login">
-        Log In
+        {{ t('login_title') }}
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </button>
     </form>
 
-    <div class="divider"><span>OR</span></div>
+    <div class="divider"><span>{{ t('or') }}</span></div>
 
     <button type="button" class="btn-google">
       <svg viewBox="0 0 48 48" aria-hidden="true">
@@ -60,10 +63,10 @@
         <path fill="#FBBC05" d="M10.6 28.6A14.5 14.5 0 0 1 9.5 24c0-1.6.3-3.2.8-4.6l-7.9-6.1A24 24 0 0 0 0 24c0 3.9.9 7.5 2.6 10.7l8-6.1z"/>
         <path fill="#34A853" d="M24 48c6.5 0 11.9-2.1 15.9-5.8l-7.7-6c-2.2 1.5-5 2.3-8.2 2.3-6.2 0-11.5-4.2-13.4-9.8l-8 6.1C6.6 42.6 14.6 48 24 48z"/>
       </svg>
-      Continue with Google
+      {{ t('google') }}
     </button>
 
-    <p class="signup">Don&rsquo;t have an account? <a href="/signup">Sign Up</a></p>
+    <p class="signup">{{ t('no_account') }} <a href="/signup">{{ t('signup') }}</a></p>
   </div>
 </main>
 
@@ -72,7 +75,7 @@
     const pw = document.getElementById("password");
     const show = pw.type === "password";
     pw.type = show ? "text" : "password";
-    this.setAttribute("aria-label", show ? "Hide password" : "Show password");
+    this.setAttribute("aria-label", show ? {{ t('hide_pw') | tojson }} : {{ t('show_pw') | tojson }});
   });
 </script>
 {% endblock %}

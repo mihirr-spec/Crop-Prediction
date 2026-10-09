@@ -1,21 +1,81 @@
 {% extends "base.html" %}
-{% block title %}CropWise: Find the Right Crop{% endblock %}
+{% block title %}CropWise: {{ t('rec_title') }}{% endblock %}
+{% block body_class %}home-page{% endblock %}
 
 {% block content %}
 <section class="hero">
   <div class="hero-content">
     <h1>
-      Farming is hard enough.
-      <span>Planting shouldn&rsquo;t be a guess.</span>
+      {{ t('hero_title_1') }}
+      <span>{{ t('hero_title_2') }}</span>
     </h1>
-    <p class="hero-sub">
-      Enter your soil nutrients and local climate, and our machine-learning
-      model recommends the crops most likely to thrive.
-    </p>
+    <p class="hero-sub">{{ t('hero_sub') }}</p>
     <div class="hero-actions">
-      <a class="btn btn-primary" href="/recommend">Get Recommendation</a>
-      <a class="btn btn-secondary" href="/crops">Explore Crops</a>
+      <a class="btn btn-primary" href="#predict">{{ t('btn_get_rec') }}</a>
+      <a class="btn btn-secondary" href="#crops">{{ t('btn_explore') }}</a>
     </div>
   </div>
 </section>
+
+<section class="crops" id="crops">
+  <div class="crops-inner">
+    <header class="crops-head">
+      <h2 class="section-title">{{ t('crops_title') }}</h2>
+      <p>{{ t('crops_sub') }}</p>
+    </header>
+
+    <div class="crop-filters" role="tablist">
+      <button type="button" class="chip" data-group="all" aria-pressed="true">{{ t('group_all') }}</button>
+      {% for g in groups %}
+        <button type="button" class="chip" data-group="{{ g }}" aria-pressed="false">{{ t('group_' ~ g) }}</button>
+      {% endfor %}
+    </div>
+
+    {% for g, crops in groups.items() %}
+    <div class="crop-group" data-group="{{ g }}">
+      <h3 class="group-title">{{ t('group_' ~ g) }} <span>{{ crops | length }}</span></h3>
+      <div class="crop-grid">
+        {% for c in crops %}
+        {% set s = stats[c] %}
+        <article class="crop-card" id="crop-{{ c }}">
+          <img src="{{ url_for('static', filename='images/crops/' ~ c ~ '.webp') }}"
+               alt="{{ crop_name(c) }}" width="640" height="480" loading="lazy" decoding="async">
+          <div class="crop-body">
+            <h4>{{ crop_name(c) }}</h4>
+            <dl class="crop-stats">
+              <div><dt>{{ t('stat_temp') }}</dt><dd>{{ s.temperature }}°C</dd></div>
+              <div><dt>{{ t('stat_rain') }}</dt><dd>{{ s.rainfall | round | int }} mm</dd></div>
+              <div><dt>{{ t('stat_ph') }}</dt><dd>{{ s.ph }}</dd></div>
+            </dl>
+          </div>
+        </article>
+        {% endfor %}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="predict" id="predict">
+  {% include "_predict.html" %}
+</section>
+
+<script>
+  (function () {
+    // Give the floating navbar a background once we scroll past the top
+    var onScroll = function () { document.body.classList.toggle("scrolled", window.scrollY > 40); };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+
+    var chips = document.querySelectorAll(".crop-filters .chip");
+    var groups = document.querySelectorAll(".crop-group");
+    chips.forEach(function (chip) {
+      chip.addEventListener("click", function () {
+        var g = chip.dataset.group;
+        chips.forEach(function (c) { c.setAttribute("aria-pressed", c === chip); });
+        groups.forEach(function (el) { el.hidden = g !== "all" && el.dataset.group !== g; });
+      });
+    });
+  })();
+</script>
 {% endblock %}

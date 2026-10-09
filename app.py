@@ -1,29 +1,69 @@
+import json
+from pathlib import Path
+
 from flask import Flask, jsonify, render_template, request
 
+from crops import GROUPS, STATS
+from i18n import DEFAULT_LANG, FONTS, LANGUAGES, crop_name, js_strings, translate
 from predict import recommend_top_k
 from weather import SEASONS, current_season, get_climate, search_places
 
 app = Flask(__name__)
 
+CREDITS_FILE = Path(app.static_folder) / "images" / "crops" / "credits.json"
+
+
+def current_lang():
+    lang = request.args.get("lang") or request.cookies.get("lang")
+    return lang if lang in LANGUAGES else DEFAULT_LANG
+
+
+@app.context_processor
+def inject_i18n():
+    lang = current_lang()
+    return {
+        "lang": lang,
+        "languages": LANGUAGES,
+        "lang_font": FONTS.get(lang),
+        "t": lambda key: translate(key, lang),
+        "crop_name": lambda crop: crop_name(crop, lang),
+        "js_strings": js_strings(lang),
+    }
+
+
+@app.after_request
+def remember_lang(response):
+    lang = request.args.get("lang")
+    if lang in LANGUAGES:
+        response.set_cookie("lang", lang, max_age=60 * 60 * 24 * 365, samesite="Lax")
+    return response
+
+
+def predict_context():
+    return {"seasons": SEASONS, "default_season": current_season()}
+
 
 @app.route("/")
 def home():
-    return render_template("index.html")
+    return render_template("index.html", groups=GROUPS, stats=STATS, **predict_context())
+
+
+@app.route("/recommend")
+def recommend():
+    return render_template("recommend.html", **predict_context())
 
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
     # TODO: accounts are not set up yet; this only shows the page
-    notice = None
-    if request.method == "POST":
-        notice = "Accounts aren't set up yet. Login will work once we add a user database."
-    return render_template("login.html", notice=notice)
+    show_notice = request.method == "POST"
+    return render_template("login.html", show_notice=show_notice)
 
 
-@app.route("/recommend")
-def recommend():
-    return render_template("recommend.html", seasons=SEASONS,
-                           default_season=current_season())
+@app.route("/credits")
+def credits():
+    data = json.loads(CREDITS_FILE.read_text(encoding="utf-8"))
+    return render_template("credits.html", credits=data)
 
 
 @app.get("/api/places")

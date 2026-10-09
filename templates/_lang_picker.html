@@ -1,0 +1,12 @@
+<form class="lang-picker" method="get" action="">
+  <label>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18"/></svg>
+    <span class="sr-only">{{ t('language') }}</span>
+    <select name="lang" onchange="this.form.submit()">
+      {% for code, name in languages.items() %}
+        <option value="{{ code }}" {% if code == lang %}selected{% endif %}>{{ name }}</option>
+      {% endfor %}
+    </select>
+  </label>
+  <noscript><button type="submit">OK</button></noscript>
+</form>

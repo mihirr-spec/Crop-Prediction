@@ -36,7 +36,7 @@ def recommend_top_k(values, k=3):
 
     values: dict with keys N, P, K, temperature, humidity, ph, rainfall
     returns: {"top": [{"crop": str, "confidence": float}, ...],
-              "warnings": [str, ...]}
+              "warnings": [{"field": str, "min": float, "max": float, "message": str}, ...]}
     """
     missing = [f for f in FEATURES if f not in values]
     if missing:
@@ -47,7 +47,8 @@ def recommend_top_k(values, k=3):
     warnings = []
     for f, (lo, hi) in TRAINING_RANGES.items():
         if not lo <= row[f] <= hi:
-            warnings.append(f"{f} outside training range ({lo}-{hi})")
+            warnings.append({"field": f, "min": lo, "max": hi,
+                             "message": f"{f} outside training range ({lo}-{hi})"})
 
     model = load_model()
     X = np.array([[row[f] for f in FEATURES]])
@@ -71,4 +72,4 @@ if __name__ == "__main__":
     for rank, item in enumerate(result["top"], 1):
         print(f"{rank}. {item['crop']:<12} {item['confidence']:.1%}")
     for w in result["warnings"]:
-        print("Warning:", w)
+        print("Warning:", w["message"])
