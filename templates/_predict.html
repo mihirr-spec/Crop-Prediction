@@ -10,12 +10,8 @@
     <p class="hint">{{ t('samples_hint') }}</p>
     <div class="sample-list">
       {% for s in samples %}
-        <button type="button" class="sample-btn" data-values='{{ s["values"] | tojson }}'>
-          <img src="{{ url_for('static', filename='images/crops/' ~ s.crop ~ '.webp') }}" alt="" width="64" height="48" loading="lazy">
-          <span>
-            <strong>{{ crop_name(s.crop) }}</strong>
-            <small>{{ t('group_' ~ s.group) }}</small>
-          </span>
+        <button type="button" class="sample-btn" data-reason="{{ s.reason }}" data-values='{{ s["values"] | tojson }}'>
+          {{ t('sample') }} {{ loop.index }}
         </button>
       {% endfor %}
     </div>
@@ -70,6 +66,10 @@
     <h3 class="section-title">{{ t('results_title') }}</h3>
     <div id="result-cards" class="result-cards"></div>
     <ul id="result-warnings" class="result-warnings"></ul>
+    <div id="sample-reason" class="sample-reason" hidden>
+      <h4>{{ t('why_score') }}</h4>
+      <p></p>
+    </div>
   </section>
 </div>
 

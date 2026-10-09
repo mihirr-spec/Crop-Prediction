@@ -62,11 +62,6 @@
 
 <script>
   (function () {
-    // Give the floating navbar a background once we scroll past the top
-    var onScroll = function () { document.body.classList.toggle("scrolled", window.scrollY > 40); };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
-
     var chips = document.querySelectorAll(".crop-filters .chip");
     var groups = document.querySelectorAll(".crop-group");
     chips.forEach(function (chip) {

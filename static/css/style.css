@@ -52,55 +52,56 @@ h1, h2, h3, h4, p, label, legend, dt, a, button { overflow-wrap: anywhere; }
   letter-spacing: -0.01em;
 }
 
-/* ---------- Navbar ---------- */
+/* ---------- Navbar ----------
+   A floating white bar, readable on top of the hero photo and on plain pages. */
 .nav {
   position: sticky;
   top: 0;
   z-index: 50;
+  padding: 10px var(--gutter);
+}
+
+.home-page .nav { position: fixed; inset: 0 0 auto 0; }
+
+.nav-bar {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  padding: 12px var(--gutter);
-  background: rgba(255, 253, 247, 0.92);
-  backdrop-filter: blur(8px);
-  border-bottom: 1px solid var(--line);
-}
-
-/* On the home page the bar floats over the hero photo */
-.home-page .nav {
-  position: fixed;
-  inset: 0 0 auto 0;
-  background: transparent;
-  border-color: transparent;
-  backdrop-filter: none;
-  transition: background 0.2s;
-}
-
-.home-page .nav.nav-open,
-.home-page.scrolled .nav {
-  background: rgba(255, 253, 247, 0.95);
-  border-color: var(--line);
-  backdrop-filter: blur(8px);
+  padding: 8px 8px 8px 18px;
+  border: 1px solid rgba(46, 125, 50, 0.12);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 6px 24px rgba(31, 42, 31, 0.08);
 }
 
 .brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   font-family: "Fraunces", Georgia, serif;
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   font-weight: 700;
-  color: var(--green-dark);
+  color: var(--ink);
   text-decoration: none;
 }
+
+.brand-leaf { width: 30px; height: 30px; flex-shrink: 0; }
 
 .nav-toggle {
   display: grid;
   place-items: center;
   width: 44px;
   height: 44px;
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  background: #fff;
-  color: var(--ink);
+  border: 0;
+  border-radius: 50%;
+  background: var(--green-soft);
+  color: var(--green-dark);
   cursor: pointer;
 }
 
@@ -113,42 +114,57 @@ h1, h2, h3, h4, p, label, legend, dt, a, button { overflow-wrap: anywhere; }
   stroke-linecap: round;
 }
 
-/* Mobile: links live in a dropdown panel */
+/* Mobile: links drop down as a card under the bar */
 .nav-panel {
   display: none;
   position: absolute;
-  top: 100%;
+  top: calc(100% + 8px);
   left: 0;
   right: 0;
-  padding: 8px var(--gutter) 16px;
-  background: var(--cream);
-  border-bottom: 1px solid var(--line);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.06);
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.1);
 }
 
-.nav-open .nav-panel { display: block; }
+.nav-open .nav-panel { display: flex; flex-direction: column; gap: 10px; }
 
 .nav-links { display: flex; flex-direction: column; }
 
 .nav-links a {
-  padding: 12px 4px;
+  padding: 12px 14px;
+  border-radius: 12px;
   color: var(--ink);
   text-decoration: none;
   font-weight: 500;
-  font-size: 1rem;
-  border-bottom: 1px solid var(--line);
 }
 
-.nav-links a:hover { color: var(--green); }
+.nav-links a:hover { background: var(--green-soft); color: var(--green-dark); }
 
-.lang-picker { margin-top: 12px; }
+.nav-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 10px 20px;
+  border-radius: 999px;
+  background: var(--green);
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.2s;
+}
+
+.nav-cta:hover { background: var(--green-dark); }
 
 .lang-picker label {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 0 4px 0 10px;
-  border: 1px solid var(--field);
+  gap: 6px;
+  padding: 0 4px 0 12px;
+  border: 1px solid var(--line);
   border-radius: 999px;
   background: #fff;
   color: var(--muted);
@@ -165,32 +181,36 @@ h1, h2, h3, h4, p, label, legend, dt, a, button { overflow-wrap: anywhere; }
 
 .lang-picker select {
   min-height: 40px;
-  padding: 0 8px 0 2px;
+  padding: 0 6px 0 2px;
   border: 0;
   background: transparent;
   font: inherit;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   color: var(--ink);
   cursor: pointer;
 }
 
+.nav-panel .lang-picker label { width: 100%; }
+.nav-panel .lang-picker select { flex: 1; }
+
 @media (min-width: 900px) {
+  .nav { padding-top: 14px; }
   .nav-toggle { display: none; }
 
   .nav-panel {
     display: flex;
     align-items: center;
-    gap: 28px;
+    gap: 14px;
     position: static;
     padding: 0;
-    background: none;
     border: 0;
+    background: none;
     box-shadow: none;
   }
 
-  .nav-links { flex-direction: row; gap: 24px; }
-  .nav-links a { padding: 6px 0; border: 0; font-size: 0.95rem; }
-  .lang-picker { margin-top: 0; }
+  .nav-links { flex-direction: row; gap: 4px; }
+  .nav-links a { padding: 8px 14px; border-radius: 999px; font-size: 0.95rem; }
+  .nav-panel .lang-picker label { width: auto; }
 }
 
 /* ---------- Buttons ---------- */
@@ -231,7 +251,7 @@ h1, h2, h3, h4, p, label, legend, dt, a, button { overflow-wrap: anywhere; }
   min-height: 100svh;
   display: flex;
   align-items: flex-start;
-  padding: 96px var(--gutter) 56px;
+  padding: 104px var(--gutter) 56px;
   /* fade the photo on phones so the text stays readable */
   background:
     linear-gradient(rgba(255, 253, 247, 0.93), rgba(255, 253, 247, 0.6)),
@@ -463,46 +483,43 @@ h1, h2, h3, h4, p, label, legend, dt, a, button { overflow-wrap: anywhere; }
 /* Try sample values */
 .samples {
   margin-top: 24px;
-  padding: 18px;
-  border: 1px dashed #b9c8a8;
-  border-radius: 14px;
-  background: var(--green-soft);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 16px;
 }
 
 .samples-title { font-size: 1.05rem; }
-.samples .hint { margin-top: 4px; }
+.samples .hint { margin-top: 0; flex-basis: 100%; order: 3; }
 
-.sample-list {
-  margin-top: 14px;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 10px;
-}
-
-@media (min-width: 560px) { .sample-list { grid-template-columns: repeat(3, 1fr); } }
+.sample-list { display: flex; flex-wrap: wrap; gap: 8px; }
 
 .sample-btn {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  min-height: 56px;
-  padding: 8px 12px 8px 8px;
+  min-height: 44px;
+  padding: 8px 18px;
   border: 1px solid var(--field);
-  border-radius: 12px;
+  border-radius: 999px;
   background: #fff;
   font: inherit;
-  color: var(--ink);
-  text-align: left;
+  font-weight: 600;
+  color: var(--green-dark);
   cursor: pointer;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition: border-color 0.2s, background 0.2s;
 }
 
 .sample-btn:hover { border-color: var(--green); }
-.sample-btn.active { border: 2px solid var(--green); box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.15); }
+.sample-btn.active { background: var(--green); border-color: var(--green); color: #fff; }
 
-.sample-btn img { width: 56px; height: 42px; object-fit: cover; border-radius: 8px; flex-shrink: 0; }
-.sample-btn strong { display: block; font-size: 1rem; }
-.sample-btn small { display: block; color: var(--muted); font-size: 0.8rem; }
+.sample-reason {
+  margin-top: 18px;
+  padding: 16px 18px;
+  border-left: 4px solid var(--green);
+  border-radius: 10px;
+  background: var(--green-soft);
+}
+
+.sample-reason h4 { font-size: 1rem; color: var(--green-dark); }
+.sample-reason p { margin-top: 6px; color: var(--ink); }
 
 .link-btn {
   margin-top: 14px;
@@ -606,18 +623,6 @@ h1, h2, h3, h4, p, label, legend, dt, a, button { overflow-wrap: anywhere; }
 .credit-list img { width: 64px; height: 48px; object-fit: cover; border-radius: 6px; flex-shrink: 0; }
 .credit-list span { display: block; color: var(--muted); overflow-wrap: anywhere; }
 .credit-list a { color: var(--green); }
-
-/* ---------- Footer ---------- */
-.footer {
-  padding: 28px var(--gutter);
-  text-align: center;
-  font-size: 0.875rem;
-  color: var(--muted);
-  border-top: 1px solid var(--line);
-}
-
-.footer p + p { margin-top: 6px; }
-.footer a { color: var(--green); }
 
 /* Letter-spacing and capitals split up joined letters in Indian scripts */
 html:not([lang="en"]) * { letter-spacing: normal !important; text-transform: none !important; }

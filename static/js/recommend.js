@@ -14,15 +14,26 @@
   };
 
   // ---------- Try sample values ----------
-  document.querySelectorAll(".sample-btn").forEach((btn) =>
+  // Remember which sample filled the form, so the result can explain its score.
+  // Editing any field afterwards means it is no longer that sample.
+  let activeSample = null;
+  const sampleBtns = document.querySelectorAll(".sample-btn");
+  const reasonBox = document.getElementById("sample-reason");
+
+  sampleBtns.forEach((btn) =>
     btn.addEventListener("click", () => {
       const values = JSON.parse(btn.dataset.values);
       FIELDS.forEach((f) => (form[f].value = values[f]));
-      document.querySelectorAll(".sample-btn").forEach((b) => b.classList.toggle("active", b === btn));
+      sampleBtns.forEach((b) => b.classList.toggle("active", b === btn));
+      activeSample = btn.dataset.reason;
       formError.hidden = true;
-      form.scrollIntoView({ behavior: "smooth", block: "start" });
     })
   );
+
+  form.addEventListener("input", () => {
+    activeSample = null;
+    sampleBtns.forEach((b) => b.classList.remove("active"));
+  });
 
   // ---------- Submit ----------
   form.addEventListener("submit", async (e) => {
@@ -66,7 +77,8 @@
     warnings.innerHTML = "";
 
     data.top.forEach((item, i) => {
-      const pct = Math.round(item.confidence * 100);
+      // one decimal, so 99.5% doesn't show as 100% and 52.5 + 47.5 adds up
+      const pct = Math.round(item.confidence * 1000) / 10;
       const el = document.createElement("article");
       el.className = "result-card" + (i === 0 ? " best" : "");
       el.innerHTML =
@@ -90,6 +102,9 @@
       li.textContent = text;
       warnings.appendChild(li);
     });
+
+    reasonBox.hidden = !activeSample;
+    if (activeSample) reasonBox.querySelector("p").textContent = L[activeSample];
 
     results.hidden = false;
     results.scrollIntoView({ behavior: "smooth", block: "start" });

@@ -1,6 +1,6 @@
 """The 22 crops the model knows, grouped, with dataset averages.
 
-Generated from Crop_recommendation.csv (the CSV is not deployed).
+Generated from data/Crop_recommendation.csv (the CSV is not deployed).
 """
 
 GROUPS = {
@@ -62,13 +62,16 @@ STATS = {
     "watermelon": {"N": 99.4, "P": 17.0, "K": 50.2, "temperature": 25.6, "humidity": 85.2, "ph": 6.5, "rainfall": 50.8},
 }
 
-# "Try sample values": real rows from the dataset that the model is most
-# confident about (and that sit close to that crop's average conditions)
+# "Try sample values": one real rice row from the dataset, then the same
+# field with a few values changed so the model becomes less sure.
+#   1. exact dataset row                      -> rice 99.5%
+#   2. rainfall 230.2 -> 195 mm               -> rice 85.5%, jute 14.5%
+#   3. rainfall 190 mm, temperature 23 °C     -> jute 52.5%, rice 47.5%
 SAMPLES = [
-    {"crop": "rice", "group": "cereals",
-     "values": {"N": 91, "P": 50, "K": 40, "temperature": 20.8, "humidity": 84.1, "ph": 6.5, "rainfall": 230.2}},
-    {"crop": "chickpea", "group": "pulses",
-     "values": {"N": 42, "P": 67, "K": 77, "temperature": 19.0, "humidity": 15.9, "ph": 7.1, "rainfall": 78.7}},
-    {"crop": "mango", "group": "fruits",
-     "values": {"N": 28, "P": 23, "K": 28, "temperature": 30.0, "humidity": 50.1, "ph": 5.7, "rainfall": 96.1}},
+    {"values": {"N": 91, "P": 50, "K": 40, "temperature": 20.8, "humidity": 84.1, "ph": 6.5, "rainfall": 230.2},
+     "reason": "sample_reason_1"},
+    {"values": {"N": 91, "P": 50, "K": 40, "temperature": 20.8, "humidity": 84.1, "ph": 6.5, "rainfall": 195.0},
+     "reason": "sample_reason_2"},
+    {"values": {"N": 91, "P": 50, "K": 40, "temperature": 23.0, "humidity": 84.1, "ph": 6.5, "rainfall": 190.0},
+     "reason": "sample_reason_3"},
 ]

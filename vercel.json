@@ -3,7 +3,7 @@
   "framework": "flask",
   "functions": {
     "app.py": {
-      "excludeFiles": "{*.ipynb,*.csv,*.md,run.bat}"
+      "excludeFiles": "{data/**,notebooks/**,docs/**,*.md}"
     }
   }
 }

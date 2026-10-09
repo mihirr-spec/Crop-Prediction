@@ -3,9 +3,9 @@ from pathlib import Path
 
 from flask import Flask, jsonify, render_template, request
 
-from crops import GROUPS, SAMPLES, STATS
-from i18n import DEFAULT_LANG, FONTS, LANGUAGES, crop_name, js_strings, translate
-from predict import recommend_top_k
+from cropwise.crops import GROUPS, SAMPLES, STATS
+from cropwise.i18n import DEFAULT_LANG, FONTS, LANGUAGES, crop_name, js_strings, translate
+from cropwise.predict import recommend_top_k
 
 app = Flask(__name__)
 

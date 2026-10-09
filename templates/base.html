@@ -22,32 +22,34 @@
 <body class="{% block body_class %}{% endblock %}">
   {% block nav %}
   <header class="nav" id="top">
-    <a class="brand" href="/">CropWise</a>
+    <div class="nav-bar">
+      <a class="brand" href="/">
+        <svg class="brand-leaf" viewBox="0 0 48 48" aria-hidden="true">
+          <path d="M22 44c0-10 0-20-12-30 14 2 18 12 12 30z" fill="#4c8a34"/>
+          <path d="M24 44C22 28 28 12 44 6c0 18-8 30-20 38z" fill="#2e7d32"/>
+          <path d="M24 44c4-12 10-22 18-34" stroke="#fff" stroke-width="1.6" fill="none"/>
+        </svg>
+        CropWise
+      </a>
 
-    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-panel">
-      <span class="sr-only">{{ t('nav_menu') }}</span>
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
-    </button>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-panel">
+        <span class="sr-only">{{ t('nav_menu') }}</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
 
-    <div class="nav-panel" id="nav-panel">
-      <nav class="nav-links">
-        <a href="/">{{ t('nav_home') }}</a>
-        <a href="/#crops">{{ t('nav_crops') }}</a>
-        <a href="/#predict">{{ t('nav_predict') }}</a>
-      </nav>
-      {% include "_lang_picker.html" %}
+      <div class="nav-panel" id="nav-panel">
+        <nav class="nav-links">
+          <a href="/">{{ t('nav_home') }}</a>
+          <a href="/#crops">{{ t('nav_crops') }}</a>
+        </nav>
+        {% include "_lang_picker.html" %}
+        <a class="nav-cta" href="/#predict">{{ t('nav_predict') }}</a>
+      </div>
     </div>
   </header>
   {% endblock %}
 
   {% block content %}{% endblock %}
-
-  {% block footer %}
-  <footer class="footer">
-    <p>{{ t('footer') }}</p>
-    <p><a href="/credits">{{ t('photo_credits') }}</a></p>
-  </footer>
-  {% endblock %}
 
   <script>
     (function () {
@@ -58,7 +60,7 @@
         var open = nav.classList.toggle("nav-open");
         btn.setAttribute("aria-expanded", open);
       });
-      nav.querySelectorAll(".nav-links a").forEach(function (a) {
+      nav.querySelectorAll(".nav-panel a").forEach(function (a) {
         a.addEventListener("click", function () {
           nav.classList.remove("nav-open");
           btn.setAttribute("aria-expanded", "false");

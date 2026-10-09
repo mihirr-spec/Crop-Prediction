@@ -5,11 +5,11 @@ from pathlib import Path
 import joblib
 import numpy as np
 
-MODEL_PATH = Path(__file__).with_name("crop_rf_model.pkl")
+MODEL_PATH = Path(__file__).resolve().parent.parent / "model" / "crop_rf_model.pkl"
 
 FEATURES = ["N", "P", "K", "temperature", "humidity", "ph", "rainfall"]
 
-# Min/max of each feature in Crop_recommendation.csv
+# Min/max of each feature in data/Crop_recommendation.csv
 TRAINING_RANGES = {
     "N": (0, 140),
     "P": (5, 145),
